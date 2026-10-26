@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="把想法整理成可执行、可验证的 GPT 协作提示词。">
+<title>同频｜协作提示词工作台</title>
+<style>
+:root{color-scheme:light;--ink:#454943;--muted:#858a82;--paper:#f1f2ee;--layer1:#f1f2ee;--layer2:#eff0ec;--layer3:#edeee9;--layer4:#ebede7;--sage:#758b79;--line:#dfe2db;--shadow:#cbd0c7;--radius:20px;font:400 15px/1.55 Inter,"PingFang SC","Microsoft YaHei",sans-serif}*{box-sizing:border-box}body{margin:0;background:var(--layer1);color:var(--ink);font-weight:400;text-wrap:pretty}.app{max-width:1240px;margin:auto;padding:38px 34px 56px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}.brand{font-size:12px;letter-spacing:.16em;color:var(--muted)}.brand b{font-weight:500;color:var(--sage)}h1{font-size:clamp(27px,4vw,40px);letter-spacing:-.04em;font-weight:500;margin:12px 0 5px}.subtitle{color:var(--muted);font-size:14px}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 16px;background:var(--layer2);border-radius:18px;box-shadow:5px 5px 12px var(--shadow),-5px -5px 12px #fff;margin:26px 0 20px}.toolbar-group{display:flex;align-items:center;gap:12px}.label-small,.eyebrow{font-size:11px;letter-spacing:.12em;color:var(--muted);font-weight:500}.segmented{display:flex;gap:4px;padding:4px;border-radius:14px;background:var(--layer3)}button,select{font:inherit;color:inherit}button{cursor:pointer}.segmented button,.plain-btn{border:0;background:transparent;border-radius:10px;padding:8px 13px;color:var(--muted);font-size:13px;transition:background .18s,color .18s}.segmented button:hover,.plain-btn:hover{background:var(--layer4);color:var(--ink)}.segmented button.active{background:var(--layer1);color:var(--ink);box-shadow:2px 2px 5px #ccd1c8,-2px -2px 5px white}.select-wrap{position:relative}.select-wrap:after{content:"⌄";position:absolute;right:12px;top:7px;color:var(--muted);pointer-events:none}select,.control{width:100%;border:0;outline:0;background:var(--layer3);color:var(--ink);border-radius:12px;padding:11px 13px;box-shadow:inset 3px 3px 7px #d5d9d0,inset -3px -3px 7px #fff}select{appearance:none;padding-right:34px}.select-wrap select{min-width:176px}.workspace{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(350px,.95fr);gap:22px;align-items:start}.form{display:grid;gap:13px}.card,.preview{background:var(--layer2);border-radius:var(--radius);box-shadow:6px 6px 14px var(--shadow),-6px -6px 14px white;overflow:hidden}.card-head{display:flex;gap:14px;align-items:center;padding:18px 20px 12px}.number{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;background:var(--layer3);color:var(--sage);font-size:12px;box-shadow:inset 2px 2px 4px #d5d9d0,inset -2px -2px 4px white}.card-title{font-size:16px;font-weight:500}.card-hint{font-size:12px;color:var(--muted);margin-top:2px}.fields{padding:4px 20px 20px;display:grid;gap:14px}.field label{display:block;margin-bottom:6px;font-size:13px;font-weight:400}.optional{font-size:11px;color:var(--muted);margin-left:7px}.control{font-size:13px;resize:vertical;min-height:42px}.control::placeholder{color:#9da198}.control:focus{box-shadow:inset 4px 4px 8px #cdd2c9,inset -4px -4px 8px white,0 0 0 1px #d6dbd2,0 0 0 3px #e7eae4}.control.area{min-height:76px}.control.tall{min-height:105px}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.chips{display:flex;flex-wrap:wrap;gap:7px}.chip{position:relative}.chip input{position:absolute;opacity:0}.chip span{display:block;padding:7px 11px;border-radius:99px;background:var(--layer3);color:var(--muted);font-size:12px;cursor:pointer;transition:.18s}.chip span:hover{background:var(--layer4)}.chip input:checked+span{background:#e2e8df;color:#536b57;box-shadow:inset 0 0 0 1px #d5ded2}.details{border:0;border-radius:11px;background:var(--layer3);padding:9px 12px;text-align:left;color:var(--muted);font-size:12px}.optional-content{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s ease}.optional-content.open{grid-template-rows:1fr}.optional-inner{overflow:hidden}.optional-inner>.field{padding-top:13px}.quick-hidden{display:none!important}.preview{position:sticky;top:18px;padding:22px 22px 16px}.preview-top{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--line)}.preview-title{font-size:19px;font-weight:500;margin-top:4px}.live{font-size:11px;color:var(--sage);display:flex;align-items:center;gap:6px}.live:before{content:"";width:6px;height:6px;border-radius:50%;background:#91a58e}.output{white-space:pre-wrap;overflow-wrap:anywhere;max-height:calc(100vh - 250px);min-height:360px;overflow:auto;padding:17px 3px;color:#555a53;font:400 12px/1.8 ui-monospace,"SFMono-Regular",Consolas,monospace;scrollbar-color:#cbd0c7 transparent}.preview-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:13px;color:var(--muted);font-size:11px}.copy{border:0;background:var(--sage);color:white;border-radius:11px;padding:9px 14px;font-size:12px;transition:transform .2s,background .2s}.copy:hover{background:#687f6c}.copy:active{transform:scale(.97)}.hint{margin-top:15px;padding:14px 16px;border-radius:15px;background:var(--layer3);color:var(--muted);font-size:12px}.hint strong{font-weight:500;color:var(--ink)}.toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#687f6c;color:white;padding:10px 16px;border-radius:12px;font-size:13px;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}.icon{display:inline-block;transform:translateY(.125em)}.custom-spec{padding:12px 13px;border-radius:13px;background:var(--layer3);color:var(--muted);font-size:12px;line-height:1.7}.custom-spec strong{font-weight:500;color:var(--ink)}
+@media(max-width:850px){.app{padding:24px 17px 40px}.workspace{grid-template-columns:1fr}.preview{position:static;order:2}.output{max-height:none;min-height:260px}.toolbar{align-items:flex-start;flex-direction:column}.toolbar-group{width:100%;justify-content:space-between}.select-wrap select{min-width:150px}}@media(max-width:520px){.two{grid-template-columns:1fr}.top{margin-bottom:18px}.toolbar{margin:20px 0 15px}.preview{padding:17px}.fields{padding-left:15px;padding-right:15px}.card-head{padding-left:15px;padding-right:15px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+</style>
+<style>
+:root{--layer1:#f3f4f1;--layer2:#f0f2ee;--layer3:#edefea;--layer4:#ebede8}
+.toolbar{display:inline-flex;width:max-content;max-width:100%;justify-content:flex-start;margin-top:20px;background:#6f8d70;box-shadow:inset 5px 5px 10px #5c785e,inset -5px -5px 10px #829e83}
+.segmented{background:#617d63}
+.top{align-items:flex-start}.top>.plain-btn{margin-top:12px}
+h1,.brand b,.card-title,.preview-title,.label-small,.eyebrow,.field label,.hint strong{font-weight:300}
+.control:focus{outline:0;border:0;box-shadow:inset 0 0 0 1px #aebcac,inset 0 0 0 3px #dce5d9,inset 4px 4px 8px #c5ccc2,inset -4px -4px 8px #fff}
+.control:focus-visible{outline:0}
+.number,#count{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.output{transition:filter .12s ease,opacity .12s ease}
+.output.updating{filter:blur(6px);opacity:.45}
+.toolbar button{border:0}
+.toolbar .segmented button{color:#eef3ed}
+.toolbar .segmented button.active{background:#edf2ea;color:#425b45;box-shadow:2px 2px 5px #536e55,-2px -2px 5px #89a58a}
+.toolbar #reset{color:#f4f6f2;opacity:.82}
+.toolbar #reset:hover{background:#5c795e;color:#fff;opacity:1}
+.details:hover,.plain-btn:hover{background:var(--layer4)}
+.copy:hover{background:#687f6c}
+@media(min-resolution:2dppx){.preview-top,.preview-foot{border-width:.5px}}
+@media(max-width:850px){.toolbar{width:max-content;align-items:center;flex-direction:row}.top>.plain-btn{margin-top:8px}}
+.card-title{font-weight:600}
+.control{font-family:inherit;font-size:13px;line-height:1.55}
+.workspace>aside{position:sticky;top:18px;align-self:start}
+.preview{position:relative;top:auto}
+@media(max-width:850px){.workspace>aside{position:static}.preview{position:static}}
+.field label{font-weight:600}
+textarea.control{resize:none}
+.card{transition:transform .2s ease,box-shadow .2s ease,background-color .2s ease,opacity .2s ease}
+.card.working{position:relative;z-index:1;transform:translate(-3px,-3px);background:#eaf1e8;box-shadow:9px 9px 20px #bdc9bb,-7px -7px 17px #fff}
+.card.finished{opacity:.5}
+.card.reveal-card{opacity:0;transform:translateY(18px)}
+.card.reveal-card.is-visible{opacity:1;transform:translateY(0)}
+.card.reveal-card.is-visible.working{transform:translate(-3px,-3px)}
+.card.reveal-card.is-visible.finished{opacity:.5}
+@media(prefers-reduced-motion:reduce){.card{transition:none}.card.reveal-card{opacity:1;transform:none}}
+.toolbar{align-items:center;justify-content:flex-start;gap:12px}
+.preview{background:#ebeee9}
+.output{display:block;width:100%;border:0;outline:0;resize:none;background:transparent;color:#555a53;font:400 12px/1.8 ui-monospace,"SFMono-Regular",Consolas,monospace}
+.output:focus{outline:0;box-shadow:inset 0 0 0 1px #cbd3c8,inset 0 0 0 3px #e2e7df}
+.form{gap:30px}
+.field label{font-weight:500}
+.card-title,.preview-title{font-weight:600}
+.toolbar{border-radius:27px;transform:translateY(-6px)}
+#reset{opacity:.62;transition:opacity .18s ease,background .18s ease}
+#reset:hover{opacity:.95}
+.toolbar{padding:0;background:transparent;box-shadow:none;border-radius:0;transform:none;margin:14px 0 20px;gap:14px}
+.segmented{position:relative;isolation:isolate;display:flex;gap:0;padding:4px;border-radius:18px;background:#6f8d70;box-shadow:inset 4px 4px 8px #526d54,inset -4px -4px 8px #89a68b}
+.segmented::before{content:"";position:absolute;z-index:-1;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:14px;background:#edf2ea;box-shadow:3px 3px 7px #536e55,-3px -3px 7px #89a58a;transform:translateX(0);transition:transform .42s cubic-bezier(.22,1,.36,1)}
+.segmented.mode-deep::before{transform:translateX(100%)}
+.segmented button{position:relative;z-index:1;flex:1;min-width:112px;color:#eef3ed;transition:none}
+.segmented button.active,.toolbar .segmented button.active{background:transparent;color:#425b45;box-shadow:none}
+.segmented button:hover{background:transparent;color:#fff}
+.segmented button.active:hover{color:#425b45}
+.toolbar #reset{border:0;border-radius:0;padding:8px 2px;background:transparent;box-shadow:none;color:var(--muted);opacity:.65;text-decoration:none}
+.toolbar #reset:hover{background:transparent;color:var(--sage);opacity:1;text-decoration:underline}
+.byline{font-size:.38em;font-weight:400;letter-spacing:0;color:var(--muted);vertical-align:middle;margin-left:.45em}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="top"><div><div class="brand"><b>✳</b>　COLLABORATION STUDIO</div><h1>GPT提示词生成器 <span class="byline">by LezlieL</span></h1><div class="subtitle">支持快速/深入两种模式</div></div></header>
+  <div class="toolbar"><div class="segmented" role="group" aria-label="填写深度"><button type="button" data-mode="quick" aria-pressed="false">快速整理</button><button type="button" data-mode="deep" class="active" aria-pressed="true">深入共创</button></div><button class="plain-btn" type="button" id="reset">清空内容</button></div>
+  <div class="workspace"><form class="form" id="form" autocomplete="off">
+    <section class="card"><div class="card-head"><span class="number">01</span><div><div class="card-title">任务目标与目的</div><div class="card-hint">先对齐要解决的问题，再决定怎么做。</div></div></div><div class="fields">
+      <div class="field quick"><label for="goalQuick">你希望我帮你完成什么？</label><textarea class="control area" id="goalQuick" placeholder="一句话描述任务，以及你想达成的目的。"></textarea></div>
+      <div class="field deep"><label for="goal">具体要完成什么？</label><textarea class="control area" id="goal" placeholder="例如：优化聊天界面的输入体验，并给出可验证的实现方案。"></textarea></div>
+      <div class="two deep"><div class="field"><label for="purpose">为什么现在要做？</label><input class="control" id="purpose" placeholder="痛点、机会或触发原因"></div><div class="field"><label for="audience">结果给谁使用？</label><input class="control" id="audience" placeholder="团队、用户或使用场景"></div></div>
+      <div class="field deep"><label for="success">什么结果会让你觉得成功？</label><input class="control" id="success" placeholder="希望看完、用上或做完之后发生什么变化？"></div>
+      <div class="field deep"><label for="notGoal">这次不打算解决什么？</label><input class="control" id="notGoal" placeholder="标明范围边界，避免任务膨胀"></div>
+    </div></section>
+    <section class="card"><div class="card-head"><span class="number">02</span><div><div class="card-title">背景与现有材料</div><div class="card-hint">只提供会改变答案的上下文；材料不齐也可以先开始。</div></div></div><div class="fields">
+      <div class="field quick"><label for="contextQuick">有哪些背景或材料值得我先知道？</label><textarea class="control area" id="contextQuick" placeholder="简单写背景、已有材料或目前进展；没有可留空。"></textarea></div>
+      <div class="field deep"><label for="context">有哪些背景是我必须知道的？</label><textarea class="control area" id="context" placeholder="项目阶段、已有决策、当前环境、受众习惯……"></textarea></div>
+      <div class="field deep"><label for="materials">有哪些文件、数据或成果可以参考？</label><textarea class="control area" id="materials" placeholder="列出文件或链接，说明哪份最重要、希望我怎么使用。"></textarea></div>
+      <div class="two deep"><div class="field"><label for="known">哪些内容已经确定？</label><input class="control" id="known" placeholder="事实、决策、不可变条件"></div><div class="field"><label for="unknown">哪些地方还不确定？</label><input class="control" id="unknown" placeholder="信息缺口、争议、待验证点"></div></div>
+      <div class="field deep"><label for="evidence">需要怎样使用资料和证据？</label><input class="control" id="evidence" placeholder="例如：优先一手来源，标注出处和日期，区分事实与推断"></div>
+    </div></section>
+    <section class="card"><div class="card-head"><span class="number">03</span><div><div class="card-title">硬性约束与优先级</div><div class="card-hint">说清楚限制，也告诉 AI 可以自主决定到哪一步。</div></div></div><div class="fields">
+      <div class="field quick"><label for="constraintsQuick">有哪些限制或优先考虑？</label><input class="control" id="constraintsQuick" placeholder="时间、预算、必须保留的内容或授权范围"></div>
+      <div class="two deep"><div class="field"><label for="deadline">时间或阶段限制</label><input class="control" id="deadline" placeholder="例如：今天先出可讨论初稿"></div><div class="field"><label for="resources">可用资源与条件</label><input class="control" id="resources" placeholder="工具、预算、团队能力、运行环境"></div></div>
+      <div class="field deep"><label>优先级（可多选）</label><div class="chips"><label class="chip"><input type="checkbox" name="priority" value="尽快推进"><span>尽快推进</span></label><label class="chip"><input type="checkbox" name="priority" value="准确可靠"><span>准确可靠</span></label><label class="chip"><input type="checkbox" name="priority" value="容易落地"><span>容易落地</span></label><label class="chip"><input type="checkbox" name="priority" value="创意质量"><span>创意质量</span></label><label class="chip"><input type="checkbox" name="priority" value="长期可维护"><span>长期可维护</span></label><label class="chip"><input type="checkbox" name="priority" value="控制成本"><span>控制成本</span></label></div></div>
+      <div class="field deep"><label for="must">有什么绝对不能做或必须保留？</label><textarea class="control" id="must" placeholder="例如：不要改动 API；保留现有品牌语气。"></textarea></div>
+      <button class="details" type="button" aria-expanded="false" data-panel="autonomy">＋　授权范围、假设与决策边界</button><div class="optional-content" id="autonomy"><div class="optional-inner"><div class="field"><label for="autonomySelect">希望 AI 自主推进到什么程度？</label><select class="control" id="autonomySelect"><option value="">可留空</option><option>先给方案和取舍，由我决定后再执行</option><option>合理范围内直接推进，关键决定前先问我</option><option>能自行判断的都直接完成，并说明重要取舍</option><option>先做小范围试验，验证后再扩展</option></select></div><div class="field"><label for="ambiguity">信息不完整时怎么处理？</label><select class="control" id="ambiguity"><option value="">可留空</option><option>小问题作合理假设并标注，影响方向的问题先问我</option><option>先问少量关键问题，再开始</option><option>先给暂定方案，同时列出待确认项</option></select></div><div class="field"><label for="approval">哪些事项必须先征求同意？</label><input class="control" id="approval" placeholder="例如：付费、删改、改变架构或发布"></div></div></div>
+      <button class="details" type="button" aria-expanded="false" data-panel="process">＋　协作过程与反馈节奏</button><div class="optional-content" id="process"><div class="optional-inner"><div class="field"><label for="processSelect">你希望 AI 怎么推进？</label><select class="control" id="processSelect"><option value="">可留空</option><option>先简短复述理解，再开始执行</option><option>先给计划和关键假设，我确认后继续</option><option>边做边展示阶段成果，及时校准方向</option><option>直接完成，在结果中总结过程和选择</option><option>先做最小版本，再根据反馈迭代</option></select></div><div class="field"><label for="feedback">你会怎样反馈？AI 应如何响应？</label><textarea class="control" id="feedback" placeholder="例如：先复述你理解的偏差，再针对性修改，并说明改了什么。"></textarea></div></div></div>
+      <button class="details" type="button" aria-expanded="false" data-panel="uiSpecs">＋　聊天界面专项规范（可选）</button><div class="optional-content" id="uiSpecs"><div class="optional-inner"><label class="chip include-ui"><input type="checkbox" id="includeUI"><span>将以下规范加入生成提示词</span></label><div class="field"><label for="uiSpec">界面交互、视觉和动效要求</label><textarea class="control tall" id="uiSpec">视觉：避免纯黑与 #000；以 1–3% 明度差构建四层背景。焦点态不画描边，使用更深的双环阴影；暗色文字字重降低约 40%；流式文字使用 blur(6px) 渐显、120ms 动画、字间错开 30ms；图标向下偏移 0.125em；数字使用 tabular-nums；折叠使用 Grid 0fr→1fr；正文使用 text-wrap: pretty。拖拽弹簧参数 1200/80 且零回弹，点赞使用 380/18 的轻微回弹；复制成功对勾 2.5 秒后隐藏。\n输入与消息：中文输入法处于组合输入（isComposing 或 keyCode 229）时回车只确认选字，不发送；组合结束后 500ms 内拦截回车，兼容 Safari 重复回车。距底部 40px 内才自动跟随新消息；用户滚动即停止跟随；距底部超过 120px 显示“跳至最新”。\n组件与布局：容器内按钮不加边框，悬停改底色；描边用 inset box-shadow，避免布局抖动，高 DPI 屏细线减半。外圆角 = 内圆角 + 内边距。拖动分栏时遮罩右侧预览，Esc 恢复原比例，双击分割条回到 50/50，左栏超过 82% 自动收起右栏。长文件名在后缀前省略，保留完整扩展名。\n请按实际项目栈实现；验证输入法发送、滚动跟随、分栏拖动与恢复、文件名截断和动效表现，并说明测试方式与未覆盖项。</textarea></div></div>
+    </div></section>
+    <section class="card"><div class="card-head"><span class="number">04</span><div><div class="card-title">交付内容与验收标准</div><div class="card-hint">把“做完”说具体，并约定如何检查成果。</div></div></div><div class="fields">
+      <div class="field quick"><label for="deliverQuick">希望收到什么结果？怎样算合格？</label><textarea class="control area" id="deliverQuick" placeholder="例如：一份简洁方案，包含关键依据与下一步。"></textarea></div>
+      <div class="field deep"><label for="deliver">你想收到什么形式的结果？</label><textarea class="control area" id="deliver" placeholder="例如：实现代码、设计规范、方案对比或逐步教程"></textarea></div>
+      <div class="field deep"><label for="accept">怎样判断交付符合预期？</label><textarea class="control tall" id="accept" placeholder="写出可观察、可检查的条件。例：覆盖关键场景；建议有依据；代码通过相关验证。"></textarea></div>
+      <div class="field deep"><label for="verify">需要如何验证结论或成果？</label><textarea class="control" id="verify" placeholder="测试、对照原始材料、展示计算过程或目标设备试用；未能验证之处要说明。"></textarea></div>
+      <div class="two deep"><div class="field"><label for="style">语气、篇幅或格式</label><input class="control" id="style" placeholder="例如：中文、简洁、先结论后理由"></div><div class="field"><label for="handoff">做完后交代什么？</label><input class="control" id="handoff" placeholder="完成项、未完成项、风险、下一步"></div></div>
+      <div class="field deep"><label for="iteration">如果结果不符合预期，怎样进入下一轮？</label><input class="control" id="iteration" placeholder="先指出偏差、给出修订方向，还是列出选项？"></div>
+    </div></section>
+  </form>
+  <aside><section class="preview"><div class="preview-top"><div class="preview-title">协作提示词</div><div class="live">实时生成 · 可编辑</div></div><textarea class="output" id="output" aria-label="可编辑的协作提示词" spellcheck="false"></textarea><div class="preview-foot"><span id="count">0 字</span><button class="copy" id="copy" type="button">复制提示词 <span class="icon">↗</span></button></div></section></aside></div>
+</main><div class="toast" id="toast" role="status">提示词已复制 ✓</div>
+<script>
+const form=document.getElementById('form'),output=document.getElementById('output'),count=document.getElementById('count');
+const value=id=>document.getElementById(id)?.value.trim()||'';
+const section=(n,title,entries)=>{const lines=entries.filter(([,v])=>v).map(([k,v])=>`- ${k}：${v}`);return `## ${n}｜${title}\n${lines.length?lines.join('\n'):'（未提供；如影响方向，请先询问我或说明合理假设。）'}`};
+function updateCount(){count.textContent=`${[...output.value].length.toLocaleString('zh-CN')} 字`}
+function build(){const quick=document.querySelector('[data-mode].active')?.dataset.mode==='quick';const priorities=[...document.querySelectorAll('[name="priority"]:checked')].map(x=>x.value).join('、');const intro='请优先理解任务的真实目标与使用场景，而非机械执行指令。充分利用已有上下文，遵守硬性约束，不擅自扩大范围或引入不必要的复杂度。发现关键歧义时及时询问，非关键问题可合理判断后继续。主动识别风险、检查遗漏，必要时提出更优方案；区分事实、推断与不确定信息。根据任务复杂度选择工作方式：简单任务直接执行，复杂任务先梳理方案再分步推进。';const parts=quick?[intro,section('一','任务目标与目的',[['目标 / 目的',value('goalQuick')]]),section('二','背景与现有材料',[['背景 / 材料',value('contextQuick')]]),section('三','硬性约束与优先级',[['限制 / 优先考虑',value('constraintsQuick')]]),section('四','交付内容与验收标准',[['预期结果 / 验收方式',value('deliverQuick')]])]:[intro,section('一','任务目标与目的',[['任务目标',value('goal')],['任务目的',value('purpose')],['受众 / 使用者',value('audience')],['成功的意义',value('success')],['本次不处理',value('notGoal')]]),section('二','背景与现有材料',[['必要背景',value('context')],['现有材料',value('materials')],['已确定的事实',value('known')],['待确认的问题',value('unknown')],['证据与来源偏好',value('evidence')]]),section('三','硬性约束与优先级',[['时间 / 阶段',value('deadline')],['可用资源',value('resources')],['优先级',priorities],['不可违反的要求',value('must')],['自主权',value('autonomySelect')],['信息不完整时',value('ambiguity')],['需要先确认的事项',value('approval')],['协作流程',value('processSelect')],['反馈循环',value('feedback')],...(document.getElementById('includeUI').checked?[['聊天界面专项规范',value('uiSpec')]]:[])]),section('四','交付内容与验收标准',[['交付形式',value('deliver')],['验收标准',value('accept')],['验证方法与证据',value('verify')],['表达偏好',value('style')],['状态交接',value('handoff')],['下一轮迭代',value('iteration')]])];const closing='完成后，请对照任务目标与验收标准检查结果，并根据任务类型进行适当验证。优先交付可直接使用的成果，不以建议代替执行。明确说明完成情况、关键结果及验证依据，区分已验证、未验证和未解决事项；不得虚构结果或声称未经验证的内容已通过检查。若属于持续项目，请记录重要决策、当前进度和必要的后续事项，确保工作能够衔接。';output.value=[...parts,closing].join('\n\n');updateCount()}
+function mode(name){document.querySelectorAll('[data-mode]').forEach(b=>{const active=b.dataset.mode===name;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});document.querySelector('.segmented').classList.toggle('mode-deep',name==='deep');document.querySelectorAll('.quick').forEach(e=>e.classList.toggle('quick-hidden',name!=='quick'));document.querySelectorAll('.deep').forEach(e=>e.classList.toggle('quick-hidden',name==='quick'));build()}
+document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>mode(b.dataset.mode)));
+form.addEventListener('input',build);
+form.addEventListener('change',build);
+output.addEventListener('input',updateCount);
+form.addEventListener('focusin',event=>{const card=event.target.closest('.card');if(card){card.classList.remove('finished');card.classList.add('working')}});
+form.addEventListener('focusout',event=>{const card=event.target.closest('.card');if(!card)return;requestAnimationFrame(()=>{if(card.contains(document.activeElement))return;card.classList.remove('working');const visibleFields=[...card.querySelectorAll('input:not([type="checkbox"]),textarea')].filter(control=>control.getClientRects().length&&!control.closest('.optional-content:not(.open)'));const complete=visibleFields.length>0&&visibleFields.every(control=>control.value.trim().length>0);card.classList.toggle('finished',complete)})});
+document.querySelectorAll('.details').forEach(b=>b.addEventListener('click',()=>{const open=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',String(open));document.getElementById(b.dataset.panel).classList.toggle('open',open);b.textContent=(open?'＋　':'−　')+b.textContent.slice(2)}));
+document.getElementById('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(output.value)}catch{const t=document.createElement('textarea');t.value=output.value;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}const b=document.getElementById('copy'),toast=document.getElementById('toast');b.innerHTML='已复制 ✓';toast.classList.add('show');setTimeout(()=>{toast.classList.remove('show');b.innerHTML='复制提示词 <span class="icon">↗</span>'},2500)});document.getElementById('reset').addEventListener('click',()=>{form.reset();document.querySelectorAll('.card').forEach(card=>card.classList.remove('working','finished'));document.querySelectorAll('.details').forEach(b=>{b.setAttribute('aria-expanded','false');document.getElementById(b.dataset.panel).classList.remove('open')});mode('deep')});
+const cards=[...document.querySelectorAll('.form>.card')];cards.forEach(card=>card.classList.add('reveal-card'));if('IntersectionObserver'in window){const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>entry.target.classList.toggle('is-visible',entry.isIntersecting)),{threshold:.12});cards.forEach(card=>revealObserver.observe(card))}else{cards.forEach(card=>card.classList.add('is-visible'))}mode('deep');
+</script>
+</body>
+</html>
